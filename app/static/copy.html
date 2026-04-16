@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="static/css/style.css" />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
+    <script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
+      macros: {
+        log: "ln"
+      }
+    },
+    startup: {
+      ready: function() {
+        MathJax.startup.defaultReady();
+        console.log('MathJax loaded');
+      }
+    }
+  };
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <style>
+      .gpt.user-icon{
+        padding-top: 9px;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <title>ChatGPT Clone</title>
+  </head>
+  <body>
+    <nav id="sidebar">
+      <div class="float-top">
+        <div class="sidebar-controls">
+          <button class="new-chat" id="new-chat-btn"><i class="fa fa-plus"></i> New chat</button>
+          <button class="hide-sidebar">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+        </div>
+        <ul class="conversations">
+          <li class="grouping">Previous Chats</li>
+        </ul>
+      </div>
+      <div class="user-menu">
+        <button>
+          <i class="user-icon">u</i>
+          username
+          <i class="fa fa-ellipsis dots"></i>
+        </button>
+        <ul>
+          <li><button>My plan</button></li>
+          <li><button>Custom instructions</button></li>
+          <li><button>Settings &amp; Beta</button></li>
+          <li><button>Log out</button></li>
+        </ul>
+      </div>
+    </nav>
+    <main>
+      <div class="view new-chat-view">
+            <button class="gpt-3">
+              <i class="fa-solid fa-angle-down" style="margin-right: 15px;"></i>
+                <i class="fa-solid fa-meteor" style="margin-right: 5px"></i> 
+                AST V0.1
+          </button>
+            <button>
+                <i class="fa-solid fa-share"></i>
+            </button>
+      </div>
+      <div class="view conversation-view">
+
+        <!-- <div class="message-container">
+          <div class="user message">
+            <div class="content">
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Veritatis, perspiciatis autem adipisci tempora natus aut numquam
+                corporis vel laudantium recusandae! Atque pariatur fugit
+                facilis, quo aspernatur sint cumque odio officiis?
+              </p>
+            </div>
+          </div>
+          <p class="loading-text">Loading...</p>
+          <div class="assistant message">
+            <div class="identity">
+              <i class="fa-solid fa-meteor gpt user-icon meteor-icon"></i>
+            </div>
+            <div class="content">
+              <p id="first-message">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+                in dolor, id voluptatum hic quaerat expedita, eveniet,
+                cupiditate ullam ipsa debitis. Eveniet eaque ipsam saepe velit
+                perferendis pariatur beatae aliquid? Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Vitae eius dignissimos itaque a
+                tempore eos ex sit culpa, assumenda, ducimus incidunt blanditiis
+                obcaecati praesentium, accusamus nam veritatis nobis excepturi
+                fugit. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptas iusto sequi itaque et voluptates, voluptatibus cum,
+                distinctio dicta laboriosam aliquam animi ea? Corrupti, dolore
+                alias perferendis totam necessitatibus dicta inventore!
+                <div class="button-container">
+                  <button class="steps-button">Show Steps &nbsp;→</button>
+                  <button class="icon-button"><i class="fa-regular fa-copy"></i></button>
+                  <button class="icon-button"><i class="fa-regular fa-share-from-square"></i></button>
+                  <button class="icon-button"><i class="fa-solid fa-rotate"></i></button>
+                  <button class="icon-button options"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                </div>
+              </p>
+            </div>
+          </div>
+          <div class="steps-container">
+            Step 1: To integrate \(\sec x\) from \(0\) to \(\frac{\pi}{4}\), we start with the integral: $$\int_0^{\frac{\pi}{4}} \sec x \, dx$$ Step 2: We can rewrite \(\sec x\) as \(\frac{1}{\cos x}\): $$\int_0^{\frac{\pi}{4}} \frac{1}{\cos x} \, dx$$ Step 3: To integrate this, we use the substitution \(u = \sin x\). Then, \(du = \cos x \, dx\) and \(\sec x = \frac{1}{\sqrt{1 - u^2}}\). Step 4: We also need to change the limits of integration. When \(x = 0\), \(u = \sin(0) = 0\). When \(x = \frac{\pi}{4}\), \(u = \sin\left(\frac{\pi}{4}\right) = \frac{\sqrt{2}}{2}\). Step 5: Substituting these into the integral, we get: $$\int_0^{\frac{\sqrt{2}}{2}} \frac{1}{\sqrt{1 - u^2}} \cdot \frac{du}{\cos x} = \int_0^{\frac{\sqrt{2}}{2}} \frac{1}{\sqrt{1 - u^2}} \cdot \frac{du}{\sqrt{1 - u^2}} = \int_0^{\frac{\sqrt{2}}{2}} \frac{1}{1 - u^2} \, du$$ Step 6: However, we realize that our substitution needs adjustment. Instead, let’s use the known integral of \(\sec x\): $$\int \sec x \, dx = \ln|\sec x + \tan x| + C$$ Step 7: Now, apply this to our definite integral: $$\left[\ln|\sec x + \tan x|\right]_0^{\frac{\pi}{4}}$$ Step 8: Evaluate at the upper limit \(x = \frac{\pi}{4}\): $$\ln|\sec\left(\frac{\pi}{4}\right) + \tan\left(\frac{\pi}{4}\right)| = \ln\left|\sqrt{2} + 1\right|$$ Step 9: Evaluate at the lower limit \(x = 0\): $$\ln|\sec(0) + \tan(0)| = \ln|1 + 0| = \ln(1) = 0$$ Step 10: Subtract the results: $$\ln(\sqrt{2} + 1) - 0 = \ln(\sqrt{2} + 1)$$ Therefore, the integral of \(\sec x\) from \(0\) to \(\frac{\pi}{4}\) is: $$\boxed{\ln(\sqrt{2} + 1)}$$
+          </div>
+        </div>
+        <div class="message-container">
+          <div class="user message">
+            <div class="content">
+              <p>Hello, how are you?</p>
+            </div>
+          </div>
+          <div class="assistant message">
+            <div class="identity">
+              <i class="fa-solid fa-meteor gpt user-icon"></i>
+            </div>
+            <div class="content">
+              <p id="first-message">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum
+                in dolor, id voluptatum hic quaerat expedita, eveniet,
+                cupiditate ullam ipsa debitis. Eveniet eaque ipsam saepe velit
+                perferendis pariatur beatae aliquid? Lorem, ipsum dolor sit amet
+                consectetur adipisicing elit. Vitae eius dignissimos itaque a
+                tempore eos ex sit culpa, assumenda, ducimus incidunt blanditiis
+                obcaecati praesentium, accusamus nam veritatis nobis excepturi
+                fugit. Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptas iusto sequi itaque et voluptates, voluptatibus cum,
+                distinctio dicta laboriosam aliquam animi ea? Corrupti, dolore
+                alias perferendis totam necessitatibus dicta inventore!
+              </p>
+            </div>
+          </div>
+        </div> -->
+
+      </div>
+
+      <div id="message-form">
+        <div class="message-wrapper">
+          <form id="messageForm" method="post">
+            <textarea
+              name="message"
+              id="message"
+              rows="1"
+              placeholder="Send a message"
+            ></textarea>
+            <button type="submit" class="send-button">
+              <i class="fa fa-paper-plane"></i>
+            </button>
+          </form>
+        </div>
+
+
+        <form method="post" id="ocr_form">
+            <input type="file" name="image" id="image-file" accept="image/*">
+            <button type="submit">Upload</button>
+        </form>
+        <div id="result" style="display: none;">
+            <h3>LaTeX Output:</h3>
+            <pre id="latex-output"></pre>
+            
+            <h3>Rendered Output:</h3>
+            <div id="rendered-output" class="latex-output"></div>
+        </div>
+
+      </div>
+    </main>
+    <!-- <script src="script.js"></script> -->
+    <script src="static/js/script.js"></script>
+    <script src="static/js/sessions.js"></script>
+    <script src="static/js/ocr.js"></script>
+  </body>
+</html>

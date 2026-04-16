@@ -1,0 +1,20 @@
+# IDE
+.vscode/
+.idea/
+
+__pycache__/
+*.pyc
+
+venv/
+astra-env/
+env/
+
+*.db
+*.sqlite
+
+latex-test/
+test-design/
+
+# Uploads
+uploads/
+data/
