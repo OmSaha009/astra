@@ -94,14 +94,13 @@ function createEmptyAstraMsg(prompt) {
         </div>
       <hr class="msg-divider"/>
   
-    `
+    `,
   );
 
   const allMsgs = document.querySelectorAll(".msg-row.ai-row");
   currentStreamingElement = allMsgs[allMsgs.length - 1];
 
   return currentStreamingElement.querySelector(".ai-body");
-
 }
 
 function renderConversation(msgs) {
@@ -157,6 +156,19 @@ function renderConversation(msgs) {
   document.getElementById("chatArea").scrollTop = 9999;
 }
 
+document.getElementById("imageInput").onchange = async (e) => {
+  const file = e.target.files[0];
+  const fileNameSpan = document.getElementById("imageFileName");
+
+  if (file) {
+    fileNameSpan.textContent = `${file.name}`;
+    const latex = await ocrOutput(file);
+    document.getElementById("messageInput").value = latex;
+  } else {
+    fileNameSpan.textContent = "";
+  }
+};
+
 // MESSAGE HANDLING
 document.getElementById("pdfBtn").onclick = () => {
   document.getElementById("pdfInput").click();
@@ -186,7 +198,8 @@ form.addEventListener("submit", async (e) => {
 
   const imageFile = formData.get("image");
   const hasImage = imageFile && imageFile.size > 0;
-  if (hasImage && imageFile.trim()) {
+
+  if (hasImage) {
     if (!message) {
       const latex = await ocrOutput(imageFile);
       document.getElementById("messageInput").value = latex;
@@ -264,12 +277,19 @@ form.addEventListener("submit", async (e) => {
       fullResponse += chunk;
       streamingBody.innerHTML = fullResponse;
     }
-    streamingBody.parentNode.querySelector(".action-bar").insertAdjacentHTML("afterbegin", `
-                        ${showSteps ? `<button class="action-btn steps-btn">
+    streamingBody.parentNode.querySelector(".action-bar").insertAdjacentHTML(
+      "afterbegin",
+      `
+                        ${
+                          showSteps
+                            ? `<button class="action-btn steps-btn">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
               Generate Steps
-            </button>` : ""}
-            `);
+            </button>`
+                            : ""
+                        }
+            `,
+    );
     if (window.MathJax && streamingBody) {
       MathJax.typesetPromise([streamingBody])
         .then(() => console.log("Math rendered"))
@@ -295,12 +315,21 @@ form.addEventListener("submit", async (e) => {
         if (done) break;
         const chunk = decoder.decode(value);
         fullResponse += chunk;
-        streamingBody.parentNode.querySelector(".action-bar").insertAdjacentHTML("afterbegin", `
-                        ${showSteps ? `<button class="action-btn steps-btn">
+        streamingBody.parentNode
+          .querySelector(".action-bar")
+          .insertAdjacentHTML(
+            "afterbegin",
+            `
+                        ${
+                          showSteps
+                            ? `<button class="action-btn steps-btn">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
               Generate Steps
-            </button>` : ""}
-            `);
+            </button>`
+                            : ""
+                        }
+            `,
+          );
       }
       if (window.MathJax && streamingBody) {
         MathJax.typeset([streamingBody])
@@ -315,12 +344,12 @@ form.addEventListener("submit", async (e) => {
 document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("steps-btn")) {
     const button = e.target;
-    const aiRow = button.closest('.msg-row.ai-row');
+    const aiRow = button.closest(".msg-row.ai-row");
     console.log(aiRow);
-  
+
     const userRow = aiRow.previousElementSibling;
     console.log(userRow);
-    const userMessage = userRow.querySelector('.user-bubble').innerText;
+    const userMessage = userRow.querySelector(".user-bubble").innerText;
     const prompt = userMessage;
 
     button.disabled = true;

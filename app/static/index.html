@@ -299,7 +299,7 @@
                       d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"
                     />
                   </svg>
-                  <span id="badgeLabel">Physics</span>
+                  <span id="badgeLabel">General</span>
                   <svg
                     class="chevron"
                     id="chevron"
@@ -316,6 +316,14 @@
                 <div class="dropdown-menu" id="ddMenu">
                   <div
                     class="dropdown-item sel"
+                    data-value="General"
+                    onclick="selectSub(this)"
+                  >
+                    <span class="d-dot" style="background: #faff5b"></span>
+                    General
+                  </div>
+                  <div
+                    class="dropdown-item"
                     data-value="Physics"
                     onclick="selectSub(this)"
                   >
@@ -374,6 +382,7 @@
                   </svg>
                   Use Image
                 </button>
+                <span id="imageFileName" class="file-name"></span>
               </div>
               <div class="input-right">
                 <span id="charCount">0/1000</span>
@@ -397,10 +406,10 @@
     </form>
       </div>
     </div>
-
+    
+    <script src="static/js/ocr.js"></script>
     <script src="static/js/script.js"></script>
     <script src="static/js/sessions.js"></script>
-    <script src="static/js/ocr.js"></script>
 
     <script>
       function toggleDD() {

@@ -62,14 +62,6 @@ def _ask_pdf():
     }
 
 
-@app.post("/submit")
-async def handle_form(
-    username: Annotated[str, Form()], 
-    email: Annotated[str, Form()]
-):
-    return {"message": f"Received data for {username}", "status": "success"}
-
-
 @app.post("/message-response")
 async def handle_message(
     message: Annotated[str, Form()],
@@ -83,6 +75,15 @@ async def handle_message(
         session_id = db_utils.create_session()
     else:
         print("RECEIVED SESSION ID", session_id)
+
+    if image:
+        try:
+            print(subject)
+            latex = await ocr_to_latex(image)
+            print(latex)
+        except Exception as e:
+            print(e)
+            
 
     db_utils.save_message(session_id=session_id, role="user", content=message)
 
@@ -251,6 +252,21 @@ async def delete_session(session_id: str):
     
 
 @app.post("/ocr-to-latex")
+async def ocr_to_latex1(file: UploadFile = File(...)):
+    model = LatexOCRModel()
+    try:
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".png") as tmp:
+            content = await file.read()
+            tmp.write(content)
+            tmp_path = tmp.name
+
+        latex = model.predict(tmp_path)
+        print("LATEX: ", latex)
+        os.unlink(tmp_path)
+        
+        return latex
+    except Exception as e:
+        return {"error": str(e), "status": "failed"}
 async def ocr_to_latex(file: UploadFile = File(...)):
     model = LatexOCRModel()
     try:
@@ -260,8 +276,9 @@ async def ocr_to_latex(file: UploadFile = File(...)):
             tmp_path = tmp.name
 
         latex = model.predict(tmp_path)
+        print("LATEX: ", latex)
         os.unlink(tmp_path)
         
-        return PlainTextResponse(latex)
+        return latex
     except Exception as e:
         return {"error": str(e), "status": "failed"}
