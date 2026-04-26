@@ -1,0 +1,37 @@
+┌─────────────────────────────────────────────────────────────────────┐
+│                           main.py                                   │
+│                                                                     │
+│  if subject == "Chemistry":                                        │
+│      result = chemistry_router.solve(question)                     │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                  modules/chemistry/router.py                        │
+│                                                                     │
+│  def solve(question):                                              │
+│      # Step 1: Extract using prompt module                         │
+│      info = extract_chemistry_info(question)  # calls llm_client   │
+│                                                                     │
+│      # Step 2: Filter tools                                        │
+│      tools = filter_tools(info['tags'])                            │
+│                                                                     │
+│      # Step 3: Create plan using prompt module                     │
+│      plan = create_execution_plan(info, tools)  # calls llm_client │
+│                                                                     │
+│      # Step 4: Execute (no LLM)                                    │
+│      result, explanation = execute_plan(plan, info['variables'])   │
+│                                                                     │
+│      # Step 5: Return                                              │
+│      return format_response(result, explanation)                   │
+└─────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                     core/llm_client.py                              │
+│                                                                     │
+│  def call_llm(prompt: str) -> str:                                 │
+│      return ollama.generate(...)                                   │
+│                                                                     │
+│  (NO prompts here. Just raw calls.)                                │
+└─────────────────────────────────────────────────────────────────────┘

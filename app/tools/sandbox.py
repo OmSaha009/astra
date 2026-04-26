@@ -1,4 +1,7 @@
 import subprocess, os, tempfile, sys
+from core.logging import setup_logger
+
+logger = setup_logger(__name__)
 
 def run(code: str, timeout_sec: int = 15) -> str:
     if not code.startswith('# coding') and not code.startswith('# -*- coding'):
@@ -21,8 +24,8 @@ def run(code: str, timeout_sec: int = 15) -> str:
                 encoding='utf-8',
                 shell=True
             )
-            print(f"DEBUG stdout: {repr(result.stdout)}")
-            print(f"DEBUG stderr: {repr(result.stderr)}")
+            logger.info(f"Sandbox (stdout): {repr(result.stdout)}")
+            print(f"Sandbox (stderr): {repr(result.stderr)}")
             return result.stdout if result.stdout else ("Error" + str(result.stderr))
     except subprocess.TimeoutExpired:
         return "Error: Timeout (>5s)"

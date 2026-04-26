@@ -1,0 +1,17 @@
+Classify the user's message into one of these intents: 'math_solve', 'study', 'command', or 'chat'.
+
+Message: {question}
+
+Rules:
+- 'study': General academic questions, explanations, conceptual doubts, definitions, formulas (not asking to solve a specific problem), NOT QUESTIONS THAT ARE TO BE SOLVED OR EVALUATED
+- 'command': Direct commands like "open youtube", "set timer", "remind me"
+- 'chat': Casual conversation, greetings, small talk, how are you
+
+Examples:
+"What is Newton's second law?" → study, 0.9
+"Explain quantum entanglement" → study, 0.9
+"Hi, how are you?" → chat, 0.95
+"Open YouTube" → command, 0.9
+
+Reply in EXACT format: intent, confidence
+Example: chat, 0.95

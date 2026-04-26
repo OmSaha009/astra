@@ -1,5 +1,8 @@
 import sqlite3
 import uuid
+from core.logging import setup_logger
+
+logger = setup_logger(__name__)
 
 DB_PATH = "astra.db"
 
@@ -23,6 +26,8 @@ def init_db():
         );
     ''')
 
+    logger.info("DB: Database intialized")
+
     conn.close()
 
 def create_session():
@@ -44,7 +49,7 @@ def get_recent_messages(session_id, limit=100):
     conn = sqlite3.connect(DB_PATH)
     cur = conn.execute("SELECT role, content FROM messages WHERE session_id = ? ORDER BY timestamp LIMIT ?", (session_id, limit,))         
     messages = [{"role": row[0], "content": row[1]} for row in cur]
-    print("MESSAGES RETURNING:", messages)
+    logger.info(f"Returning messages: {len(messages)}")
     conn.close()
     return messages           
 
