@@ -6,6 +6,9 @@ Imports from all block, group, and period files.
 import re
 from typing import Dict, Any, Optional
 
+from app.modules.chemistry.data.PeriodicTrends.Blocks import d_block, f_block, p_block
+from app.modules.chemistry.data.PeriodicTrends.Group import group_1, group_10, group_11, group_12, group_13, group_14, group_15, group_16, group_17, group_18, group_2, group_3, group_4, group_5, group_6, group_7, group_8
+
 # ============================================================
 # Master dictionary to hold all element data
 # ============================================================
@@ -34,10 +37,10 @@ def parse_element_name(name: str) -> tuple:
 # ============================================================
 
 # Import Group data
-from Group import group_1, group_2, group_3, group_4, group_5, group_6, group_7, group_8, group_9, group_10, group_11, group_12, group_13, group_14, group_15, group_16, group_17, group_18
+from app.modules.chemistry.data.PeriodicTrends.Group import group_9
 
 # Import Block data  
-from Blocks import s_block, p_block, d_block, f_block
+from app.modules.chemistry.data.PeriodicTrends.Blocks import s_block
 
 # Import Period data (if you have)
 # from chemistry.data.Period import period_2, period_3, etc.

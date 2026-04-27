@@ -1,4 +1,4 @@
-from mole_concept import atomic_mass, calculate_molar_mass 
+from app.modules.chemistry.physical.mole_concept import atomic_mass, calculate_molar_mass 
 
 def molarity_to_molality(molar_mass, density, molarity):
     m = (1000 * molarity)/(1000*density - molarity*molar_mass)

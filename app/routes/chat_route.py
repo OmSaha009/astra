@@ -100,7 +100,9 @@ async def handle_message(
 
             if code:
                 result = sandbox.run(code)
+                result = result.replace('lambda', 'lam')
                 result = sp.latex(sp.sympify(result))
+                result = result.replace('lam', r'\lambda')
                 result = re.sub(r'\\log', r'\\operatorname{ln}', result)
                 logger.info(f"Sandbox: {result}")
 

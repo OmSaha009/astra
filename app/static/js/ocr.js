@@ -13,7 +13,7 @@ async function ocrOutput(imageFile) {
 
         const data = await response.text()
         console.log(data)
-        const fixedLatex = data.replace(/\\\\/g, '\\');
+        const fixedLatex = data.replace(/\\\\/g, '\\').replaceAll('"', ' ')
         console.log(fixedLatex)
         console.log("DATA: ", fixedLatex)
 

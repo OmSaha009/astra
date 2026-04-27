@@ -163,7 +163,7 @@ document.getElementById("imageInput").onchange = async (e) => {
   if (file) {
     fileNameSpan.textContent = `${file.name}`;
     const latex = await ocrOutput(file);
-    document.getElementById("messageInput").value = latex;
+    document.getElementById("messageInput").value += latex;
   } else {
     fileNameSpan.textContent = "";
   }

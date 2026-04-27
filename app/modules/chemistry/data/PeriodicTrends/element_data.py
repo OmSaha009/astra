@@ -6,10 +6,10 @@ Import from block and group files and provide a single interface.
 """
 
 # Import all your existing data
-from Blocks.s_block import S_BLOCK_DATA
-from Blocks.p_block import P_BLOCK_DATA
-from Blocks.d_block import D_BLOCK_DATA
-from Blocks.f_block import F_BLOCK_DATA
+from app.modules.chemistry.data.PeriodicTrends.Blocks.s_block import S_BLOCK_DATA
+from app.modules.chemistry.data.PeriodicTrends.Blocks.p_block import P_BLOCK_DATA
+from app.modules.chemistry.data.PeriodicTrends.Blocks.d_block import D_BLOCK_DATA
+from app.modules.chemistry.data.PeriodicTrends.Blocks.f_block import F_BLOCK_DATA
 
 # Combine into one master dictionary
 ELEMENT_DATA = {}

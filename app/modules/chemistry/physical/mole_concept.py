@@ -1,8 +1,8 @@
-from data.atomic_masses import ATOMIC_MASSES
-from data.molar_masses import COMMON_MOLAR_MASSES
+from app.modules.chemistry.data.atomic_masses import ATOMIC_MASSES
+from app.modules.chemistry.data.molar_masses import COMMON_MOLAR_MASSES
 from math import gcd
 import re
-from conversions import moles_to_mass
+from app.modules.chemistry.physical.conversions import moles_to_mass
 """
 1. molarity_to_molality
 2. molality_to_molarity
