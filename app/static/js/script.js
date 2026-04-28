@@ -16,6 +16,7 @@ function createMessage(content, type, showSteps = false) {
           <div class="user-bubble">${escapeHtml(content)}</div>
         </div>`,
     );
+    MathJax.typesetPromise([inner]);
   } else {
     inner.insertAdjacentHTML(
       "beforeend",
@@ -163,7 +164,14 @@ document.getElementById("imageInput").onchange = async (e) => {
   if (file) {
     fileNameSpan.textContent = `${file.name}`;
     const latex = await ocrOutput(file);
+
+    const previewText = document.getElementById("latex-preview");
+    previewText.innerHTML = `$$${latex}$$`;
+    MathJax.typesetPromise([previewText]);
+    previewText.style.display = "block";
+
     document.getElementById("messageInput").value += latex;
+    
   } else {
     fileNameSpan.textContent = "";
   }
@@ -219,6 +227,9 @@ form.addEventListener("submit", async (e) => {
 
   createMessage(message, (type = "user"));
   document.getElementById("messageInput").value = "";
+
+  document.getElementById("latex-preview").style.display = "none";
+  document.getElementById("messageInput").style.height = '22px';
 
   // Create loading indicator
   const loader = document.createElement("div");
@@ -345,10 +356,8 @@ document.addEventListener("click", async (e) => {
   if (e.target.classList.contains("steps-btn")) {
     const button = e.target;
     const aiRow = button.closest(".msg-row.ai-row");
-    console.log(aiRow);
 
     const userRow = aiRow.previousElementSibling;
-    console.log(userRow);
     const userMessage = userRow.querySelector(".user-bubble").innerText;
     const prompt = userMessage;
 

@@ -1,21 +1,6 @@
 const mainView = document.querySelector(".main");
 const chatList = document.getElementById("chatList")
 const label = chatList.querySelector('.prev-chats-label');
-// const item = document.createElement('div');
-//     item.className = 'chat-item' + (chat.active ? ' active' : '');
-//     item.innerHTML = `
-//       <span class="chat-item-text">${chat.title}</span>
-//       <button class="chat-item-delete" title="Delete" onclick="deleteChat(event,${chat.id})">
-//         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-//           <polyline points="3 6 5 6 21 6"/>
-//           <path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
-//           <path d="M10 11v6"/><path d="M14 11v6"/>
-//           <path d="M9 6V4h6v2"/>
-//         </svg>
-//       </button>`;
-//     list.appendChild(item);
-
-
 
 //New Session
 document.getElementById("new-chat-btn").addEventListener("click", async (e) => {

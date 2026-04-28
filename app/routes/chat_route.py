@@ -3,6 +3,7 @@ import sympy as sp
 import os, tempfile
 from memory import db_utils
 from ocr_module import LatexOCRModel
+from ocr_module.latex_sanitizer import LatexSanitizer
 from core.logging import setup_logger
 from typing import Annotated, Optional
 from core.intent import classify_intent
@@ -100,10 +101,12 @@ async def handle_message(
 
             if code:
                 result = sandbox.run(code)
-                result = result.replace('lambda', 'lam')
-                result = sp.latex(sp.sympify(result))
-                result = result.replace('lam', r'\lambda')
-                result = re.sub(r'\\log', r'\\operatorname{ln}', result)
+                try:
+                    sanitizer = LatexSanitizer()
+                    result = sanitizer.process_result(result_str=result)
+                except Exception as e:
+                    logger.warning(f"LaTeX conversion failed: {e}")
+
                 logger.info(f"Sandbox: {result}")
 
                 final_response = clean_text.replace("[CODE BLOCK REMOVED]", f"Result: $ {result} $")
