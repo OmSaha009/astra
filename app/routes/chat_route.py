@@ -14,6 +14,7 @@ from core.responders.math_responder import generate_math_response
 from core.responders.chat_responder import generate_chat_response
 from core.responders.study_responder import generate_study_response
 from core.streaming import stream_generator_math, stream_generator_other
+from modules.chemistry.router import ChemistryRouter
 from fastapi import FastAPI, UploadFile, Form, Request, File, APIRouter, HTTPException
 from fastapi.responses import FileResponse, StreamingResponse, Response, PlainTextResponse
 
@@ -61,9 +62,17 @@ async def handle_message(
     context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in history])
 
 
+    chemistry_router = ChemistryRouter()
+
+    logger.info(f"SUBJECT: {subject}")
+
     if subject == "Chemistry":
-        logger.info("Chemistry module - returning placeholder")
-        return {"response": "Chemistry module coming soon"}
+        logger.info("Routing to Chemistry module")
+        result = chemistry_router.solve(message)
+        
+        return {
+            "response": f"**Result:** {result['result']}\n\n**Steps:**\n{result['explanation']}"
+        }
 
 
 

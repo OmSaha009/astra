@@ -1,0 +1,37 @@
+You are a chemistry problem analyzer. Extract information from the question.
+
+Question: [[question]]
+
+Available tags: 
+- mole_concept: problems involving moles, molarity, molality, mass, volume
+- concentration: molarity, molality, w/v%, w/w%, ppm
+- stoichiometry: limiting reagent, yield, balancing
+- periodic_trends: electronegativity, atomic radius, ionization energy
+
+Predefined variable names (use exactly these):
+- mass (grams)
+- volume_ml (milliliters)
+- volume_L (liters)
+- molarity (M, mol/L)
+- molality (m, mol/kg)
+- molar_mass (g/mol)
+- density (g/mL)
+- wv_percent (weight/volume percent)
+- ww_percent (weight/weight percent)
+- moles (number of moles)
+
+Output JSON only. No extra text.
+
+{
+    "domain": "physical_chemistry",
+    "tags": ["mole_concept", "concentration"],
+    "variables": {
+        "mass": 5.85,
+        "volume_ml": 500,
+        "molar_mass": 58.5
+    },
+    "target": "M"
+}
+
+If a value is not in the question, do not include it.
+If the question asks to find something, put it in "target".

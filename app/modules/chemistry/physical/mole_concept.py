@@ -1,8 +1,7 @@
-from app.modules.chemistry.data.atomic_masses import ATOMIC_MASSES
-from app.modules.chemistry.data.molar_masses import COMMON_MOLAR_MASSES
+from ..data.atomic_masses import ATOMIC_MASSES
+from ..data.molar_masses import COMMON_MOLAR_MASSES
 from math import gcd
 import re
-from app.modules.chemistry.physical.conversions import moles_to_mass
 """
 1. molarity_to_molality
 2. molality_to_molarity
@@ -13,6 +12,10 @@ from app.modules.chemistry.physical.conversions import moles_to_mass
 7. molarity_to_moles
 8. moles_to_molarity
 """
+
+#SHARED
+def moles_to_mass(moles, molar_mass):
+    return round(moles * molar_mass, 3)
 
 def oleum_free_so3(label):
     """Calculate % free SO3 in oleum"""

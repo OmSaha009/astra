@@ -1,4 +1,4 @@
-from app.modules.chemistry.physical.mole_concept import count_atoms, count_oh_groups, calculate_total_charge
+from ..physical.mole_concept import count_atoms, count_oh_groups, calculate_total_charge
 
 
 def get_n_factor(compound, reaction_type=None, **kwargs):

@@ -1,4 +1,4 @@
-from app.modules.chemistry.physical.mole_concept import atomic_mass, calculate_molar_mass 
+from ..physical.mole_concept import atomic_mass, calculate_molar_mass 
 
 def molarity_to_molality(molar_mass, density, molarity):
     m = (1000 * molarity)/(1000*density - molarity*molar_mass)
@@ -25,8 +25,8 @@ def molarity_to_wv(molarity, molar_mass):
     wv = round(wv, 3)
     return wv
 
-def mass_to_moles(mass_g, molar_mass):
-    return round( mass_g/molar_mass ,3)
+def mass_to_moles(mass, molar_mass):
+    return round( mass/molar_mass ,3)
 
 def moles_to_mass(moles, molar_mass):
     return round(moles * molar_mass, 3)
@@ -69,10 +69,10 @@ def molarity_to_ppm(M, molar_mass):
     return round(M * molar_mass * 1000, 2)
 
 
-def ppm_element_to_compound_mass(ppm, solution_mass_g, element, compound):
+def ppm_element_to_compound_mass(ppm, solution_mass, element, compound):
     
     # 1. element mass in grams
-    element_mass = (ppm / 1e6) * solution_mass_g
+    element_mass = (ppm / 1e6) * solution_mass
 
     # 2. molar masses
     element_mm = atomic_mass(element)
