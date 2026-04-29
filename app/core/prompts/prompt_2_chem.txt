@@ -4,7 +4,13 @@ Original question for context: [[question]]
 
 Extracted variables: [[variables]]
 Target variable: [[target]]
-Available tools: [[tools_list]]
+
+CRITICAL RULES:
+1. Use ONLY these tools: [[tools_list]]
+2. Do NOT invent new tool names
+3. $prev must be in quotes: "$prev"
+
+If you cannot solve with these tools, output an empty steps array.
 
 Available tools with signatures:
 [[signatures]]
@@ -14,6 +20,15 @@ Rules:
 - All argument values must come from extracted variables or $prev
 - Order steps logically (what needs to be calculated first)
 - Only use tools from the available list
+- DO NOT put arithmetic expressions inside $prev
+- DO NOT write calculations like "$prev * 100 / 500"
+- If you need to calculate something, do it in the function arguments directly
+
+Example of WRONG:
+{"args": {"wv_percent": "$prev * 100 / 500"}}
+
+Example of CORRECT:
+{"args": {"wv_percent": "$prev", "volume_ml": 500}}
 
 Output JSON only. Example:
 

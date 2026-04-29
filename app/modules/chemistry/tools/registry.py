@@ -63,7 +63,7 @@ TOOLS = {
     # ========== CONVERSIONS ==========
     "molarity_to_molality": {
         "function": molarity_to_molality,
-        "args": ["molar_mass", "density", "M"],
+        "args": ["molar_mass", "density", "molarity"],
         "returns": "molality",
         "tags": ["concentration", "conversion"],
         "category": "conversions",
@@ -71,7 +71,7 @@ TOOLS = {
     },
     "molality_to_molarity": {
         "function": molality_to_molarity,
-        "args": ["molar_mass", "density", "m"],
+        "args": ["molar_mass", "density", "molality"],
         "returns": "molarity",
         "tags": ["concentration", "conversion"],
         "category": "conversions",
@@ -87,7 +87,7 @@ TOOLS = {
     },
     "molarity_to_wv": {
         "function": molarity_to_wv,
-        "args": ["M", "molar_mass"],
+        "args": ["molarity", "molar_mass"],
         "returns": "wv_percent",
         "tags": ["concentration", "conversion"],
         "category": "conversions",
@@ -111,7 +111,7 @@ TOOLS = {
     },
     "molarity_to_moles": {
         "function": molarity_to_moles,
-        "args": ["M", "volume_L"],
+        "args": ["molarity", "volume"],
         "returns": "moles",
         "tags": ["mole_concept", "concentration"],
         "category": "mole_concept",
@@ -119,7 +119,7 @@ TOOLS = {
     },
     "moles_to_molarity": {
         "function": moles_to_molarity,
-        "args": ["moles", "volume_L"],
+        "args": ["moles", "volume"],
         "returns": "molarity",
         "tags": ["mole_concept", "concentration"],
         "category": "mole_concept",
@@ -191,7 +191,7 @@ TOOLS = {
     },
     "ppm_element_to_compound_mass": {
         "function": ppm_element_to_compound_mass,
-        "args": ["element_ppm", "element_molar_mass", "compound_molar_mass"],
+        "args": ["ppm", "solution_mass", "element", "compound"],
         "returns": "compound_ppm",
         "tags": ["concentration", "conversion"],
         "category": "conversions",
@@ -297,7 +297,7 @@ TOOLS = {
     },
     "mass_for_target_M": {
         "function": mass_for_target_M,
-        "args": ["target_M", "volume_L", "molar_mass"],
+        "args": ["target_M", "volume", "molar_mass"],
         "returns": "mass",
         "tags": ["concentration", "preparation"],
         "category": "mole_concept",

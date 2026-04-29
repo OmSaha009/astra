@@ -32,12 +32,12 @@ def moles_to_mass(moles, molar_mass):
     return round(moles * molar_mass, 3)
 
 
-def molarity_to_moles(M, volume_L):
-    return round(M * volume_L, 3)
+def molarity_to_moles(M, volume):
+    return round(M * volume, 3)
 
 
-def moles_to_molarity(moles, volume_L):
-    return round(moles / volume_L, 3)
+def moles_to_molarity(moles, volume):
+    return round(moles / volume, 3)
 
 def molarity_to_normality(M, n_factor):
     return M * n_factor

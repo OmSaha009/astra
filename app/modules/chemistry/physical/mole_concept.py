@@ -183,9 +183,9 @@ def volume_for_target_moles(target_moles, stock_M):
     """Volume needed from stock solution"""
     return round(target_moles / stock_M, 3)
 
-def mass_for_target_M(target_M, volume_L, molar_mass):
+def mass_for_target_M(target_M, volume, molar_mass):
     """Mass of solute needed for target molarity"""
-    moles = target_M * volume_L
+    moles = target_M * volume
     return moles_to_mass(moles, molar_mass)
 
 # 6. Colligative properties

@@ -4,6 +4,53 @@ from .tools.registry import TOOLS
 
 logger = setup_logger(__name__)
 
+import inspect
+
+ARG_ALIASES = {
+                    "volume_L": "volume",
+                    "volume_ml": "volume",
+                    "mass": "mass",
+                    "molar_mass": "molar_mass",
+                    "moles": "moles",
+                    "M": "molarity",
+                    "m": "molality",
+                    "wv_percent": "wv_percent",
+                    # Add as you find mismatches
+                }
+
+def safe_call(func, args):
+    """Call function with only the arguments it expects"""
+    sig = inspect.signature(func)
+    expected_args = set(sig.parameters.keys())
+    
+    # First map aliases, then filter
+    mapped = {}
+    for key, value in args.items():
+        new_key = ARG_ALIASES.get(key, key)
+        if new_key in expected_args:
+            mapped[new_key] = value
+        else:
+            print(f"DEBUG: Skipping unexpected argument: {key} -> {new_key}")
+    
+    # Check for missing required args
+    missing = expected_args - set(mapped.keys())
+    if missing:
+        raise ValueError(f"Missing required arguments: {missing}")
+    
+    return func(**mapped)
+
+def resolve_value(value, prev_result):
+    """Resolve $prev and evaluate simple arithmetic expressions"""
+    if isinstance(value, str) and "$prev" in value:
+        # Replace $prev with the actual numeric result
+        expr = value.replace("$prev", str(prev_result))
+        try:
+            # Evaluate the arithmetic expression
+            return eval(expr)
+        except:
+            return expr
+    return value
+
 class TaskExecutor:
     def __init__(self):
         self.state = {}
@@ -31,7 +78,12 @@ class TaskExecutor:
             func =  tool["function"]
 
             try:
-                result = func(**args)
+                resolved_args = {}
+                for key, val in args.items():
+                    resolved_args[key] = resolve_value(val, result)  # result is previous step's output
+
+                result = safe_call(func, resolved_args)
+
             except Exception as e:  
                 logger.error(f"Tool {func_name} failed: {e}")
                 raise
